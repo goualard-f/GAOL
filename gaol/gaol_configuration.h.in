@@ -1,0 +1,268 @@
+/* gaol/gaol_configuration.h.in.  Generated from configure.ac by autoheader.  */
+
+/* Define this if your system is an AARCH64-based computer under Linux */
+#undef AARCH64_LINUX
+
+/* Define if building universal (internal helper macro) */
+#undef AC_APPLE_UNIVERSAL_BUILD
+
+/* Define this to 1 if function clock() is declared in time.h */
+#undef CLOCK_IN_HEADER
+
+/* Define this if relation symbols should stand for \"certainly relations\" */
+#undef GAOL_CERTAINLY_RELATIONS
+
+/* define this if you want debugging facilities */
+#undef GAOL_DEBUGGING
+
+/* Define this to 1 to allow raising exceptions instead of simply aborting */
+#undef GAOL_EXCEPTIONS_ENABLED
+
+/* Major version for gaol */
+#undef GAOL_MAJOR_VERSION
+
+/* Micro version for gaol */
+#undef GAOL_MICRO_VERSION
+
+/* Minor version for gaol */
+#undef GAOL_MINOR_VERSION
+
+/* Define this if relation symbols should stand for \"possibly relations\" */
+#undef GAOL_POSSIBLY_RELATIONS
+
+/* define this to 1 if rounding direction should be preserved */
+#undef GAOL_PRESERVE_ROUNDING
+
+/* Define this if relation symbols should stand for \"set relations\" */
+#undef GAOL_SET_RELATIONS
+
+/* Define this to 1 if using the IBM APMathlib library */
+#undef GAOL_USING_APMATHLIB
+
+/* define this to 1 if you want to allow ASM support */
+#undef GAOL_USING_ASM
+
+/* Define this to 1 if using the CRLibm Mathematical library */
+#undef GAOL_USING_CRLIBM
+
+/* Define this to 1 to enable verbose mode */
+#undef GAOL_VERBOSE_MODE
+
+/* Version number for gaol */
+#undef GAOL_VERSION
+
+/* Define this to 1 if function getrusage() is declared in sys/resource.h */
+#undef GETRUSAGE_IN_HEADER
+
+/* Define to 1 if you have the <cassert> header file. */
+#undef HAVE_CASSERT
+
+/* Define to 1 if you have the `clock' function. */
+#undef HAVE_CLOCK
+
+/* Define to 1 if you have the <crlibm.h> header file. */
+#undef HAVE_CRLIBM_H
+
+/* Define to 1 if you have the <dlfcn.h> header file. */
+#undef HAVE_DLFCN_H
+
+/* Define to 1 if you have the <fenv.h> header file. */
+#undef HAVE_FENV_H
+
+/* Define to 1 if you have the `fesetround' function. */
+#undef HAVE_FESETROUND
+
+/* Define to 1 if you have the `finite' function. */
+#undef HAVE_FINITE
+
+/* Define to 1 if you have the <float.h> header file. */
+#undef HAVE_FLOAT_H
+
+/* Define to 1 if you have the `floor' function. */
+#undef HAVE_FLOOR
+
+/* Define to 1 if you have the `getrusage' function. */
+#undef HAVE_GETRUSAGE
+
+/* Define to 1 if you have the <inttypes.h> header file. */
+#undef HAVE_INTTYPES_H
+
+/* Define to 1 if you have the <limits> header file. */
+#undef HAVE_LIMITS
+
+/* Define to 1 if you have the `localeconv' function. */
+#undef HAVE_LOCALECONV
+
+/* Define to 1 if your system has a GNU libc compatible `malloc' function, and
+   to 0 otherwise. */
+#undef HAVE_MALLOC
+
+/* Define to 1 if you have the <MathLib.h> header file. */
+#undef HAVE_MATHLIB_H
+
+/* Define to 1 if you have the <memory.h> header file. */
+#undef HAVE_MEMORY_H
+
+/* Define to 1 if you have the `memset' function. */
+#undef HAVE_MEMSET
+
+/* Define to 1 if you have the `nextafter' function. */
+#undef HAVE_NEXTAFTER
+
+/* Define to 1 if you have the `pow' function. */
+#undef HAVE_POW
+
+/* Define to 1 if your system has a GNU libc compatible `realloc' function,
+   and to 0 otherwise. */
+#undef HAVE_REALLOC
+
+/* Define to 1 if you have the `rint' function. */
+#undef HAVE_RINT
+
+/* Define to 1 if you have the `round' function. */
+#undef HAVE_ROUND
+
+/* Define this to 1 if the compiler supports the "-frounding-math" option */
+#undef HAVE_ROUNDING_MATH_OPTION
+
+/* Define to 1 if you have the `sqrt' function. */
+#undef HAVE_SQRT
+
+/* Define to 1 if stdbool.h conforms to C99. */
+#undef HAVE_STDBOOL_H
+
+/* Define to 1 if you have the <stddef.h> header file. */
+#undef HAVE_STDDEF_H
+
+/* Define to 1 if you have the <stdint.h> header file. */
+#undef HAVE_STDINT_H
+
+/* Define to 1 if you have the <stdlib.h> header file. */
+#undef HAVE_STDLIB_H
+
+/* Define to 1 if you have the <strings.h> header file. */
+#undef HAVE_STRINGS_H
+
+/* Define to 1 if you have the <string.h> header file. */
+#undef HAVE_STRING_H
+
+/* Define to 1 if you have the <sys/resource.h> header file. */
+#undef HAVE_SYS_RESOURCE_H
+
+/* Define to 1 if you have the <sys/stat.h> header file. */
+#undef HAVE_SYS_STAT_H
+
+/* Define to 1 if you have the <sys/time.h> header file. */
+#undef HAVE_SYS_TIME_H
+
+/* Define to 1 if you have the <sys/types.h> header file. */
+#undef HAVE_SYS_TYPES_H
+
+/* Define to 1 if you have the <time.h> header file. */
+#undef HAVE_TIME_H
+
+/* Define to 1 if you have the <unistd.h> header file. */
+#undef HAVE_UNISTD_H
+
+/* Define this to 1 if the compiler supports the "-fvisibility" option */
+#undef HAVE_VISIBILITY_OPTIONS
+
+/* Define to 1 if the system has the type `_Bool'. */
+#undef HAVE__BOOL
+
+/* Define to 1 if you have the `__signbit' function. */
+#undef HAVE___SIGNBIT
+
+/* Define this if your system is a cygwin-based ix86 or compatible */
+#undef IX86_CYGWIN
+
+/* Define this if your system is a Linux-based ix86 or compatible */
+#undef IX86_LINUX
+
+/* Define this if your system is a Linux-based ix86 or compatible */
+#undef IX86_MACOSX
+
+/* Define to the sub-directory in which libtool stores uninstalled libraries.
+   */
+#undef LT_OBJDIR
+
+/* Name of package */
+#undef PACKAGE
+
+/* Define to the address where bug reports for this package should be sent. */
+#undef PACKAGE_BUGREPORT
+
+/* Define to the full name of this package. */
+#undef PACKAGE_NAME
+
+/* Define to the full name and version of this package. */
+#undef PACKAGE_STRING
+
+/* Define to the one symbol short name of this package. */
+#undef PACKAGE_TARNAME
+
+/* Define to the home page for this package. */
+#undef PACKAGE_URL
+
+/* Define to the version of this package. */
+#undef PACKAGE_VERSION
+
+/* Define this if your system is a PowerPc under MacOs X */
+#undef POWERPC_UNIX
+
+/* The size of `int', as computed by sizeof. */
+#undef SIZEOF_INT
+
+/* The size of `long', as computed by sizeof. */
+#undef SIZEOF_LONG
+
+/* The size of `long long int', as computed by sizeof. */
+#undef SIZEOF_LONG_LONG_INT
+
+/* Define this if your system is a SUN Sparc computer under Solaris */
+#undef SPARC_SOLARIS
+
+/* Define to 1 if you have the ANSI C header files. */
+#undef STDC_HEADERS
+
+/* Define this to 1 if SSE2 instructions are to be used */
+#undef USING_SSE2_INSTRUCTIONS
+
+/* Define this to 1 if SSE3 instructions are to be used */
+#undef USING_SSE3_INSTRUCTIONS
+
+/* Version number of package */
+#undef VERSION
+
+/* Define WORDS_BIGENDIAN to 1 if your processor stores words with the most
+   significant byte first (like Motorola and SPARC, unlike Intel). */
+#if defined AC_APPLE_UNIVERSAL_BUILD
+# if defined __BIG_ENDIAN__
+#  define WORDS_BIGENDIAN 1
+# endif
+#else
+# ifndef WORDS_BIGENDIAN
+#  undef WORDS_BIGENDIAN
+# endif
+#endif
+
+/* Define this if the OS is a 64 bits one */
+#undef X86_64BITS
+
+/* Define to empty if `const' does not conform to ANSI C. */
+#undef const
+
+/* Define to `__inline__' or `__inline' if that's what the C compiler
+   calls it, or to nothing if 'inline' is not supported under any name.  */
+#ifndef __cplusplus
+#undef inline
+#endif
+
+/* Define to rpl_malloc if the replacement function should be used. */
+#undef malloc
+
+/* Define to rpl_realloc if the replacement function should be used. */
+#undef realloc
+
+/* Define to `unsigned int' if <sys/types.h> does not define. */
+#undef size_t

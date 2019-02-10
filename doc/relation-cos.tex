@@ -1,0 +1,53 @@
+\documentclass{article}
+
+\usepackage{pstricks,pst-node,pst-plot}
+\usepackage[T1]{fontenc}
+\usepackage[latin1]{inputenc}
+\usepackage{times}
+\usepackage[pdfpagescrop=33 412 552 516]{hyperref}
+
+\textwidth=18cm
+\hoffset=-3.2cm
+
+
+\begin{document}
+\thispagestyle{empty}
+\vspace*{10cm}
+%\white\psset{linecolor=white}
+\hspace*{11cm}\begin{minipage}{\textwidth}
+\psset{xunit=.32mm,yunit=3cm}
+%\def\pshlabel#1{{\count0=#1 \divide\count0 180 
+%    \ifnum\count0=1 \else\ifnum\count0=-1 -\else\the\count0\fi\fi$\pi$}}
+\rput(0,0){\psaxes[Dx=90,labels=none]{->}(0,0)(-370,-1.2)(200,1.2)}
+%
+\rput(0,0){\psplot[plotpoints=200]{-370}{200}{x cos}}
+\rput(0,0){\psplot[linewidth=2pt,plotpoints=200]{0}{180}{x cos}}
+\pcline[linecolor=blue,linewidth=1pt]{|-|}(0,.25)(0,.5)
+\Aput{$J$}
+\pcline[linecolor=blue,linewidth=1pt]{|-|}(-315,-.3)(-270,-.3)
+\Bput{$I$}
+\psline[linecolor=red,linewidth=1pt]{|-|}(60,0)(75.52,0)
+\psline[linecolor=red,linewidth=1pt]{|-|}(-284.48,0)(-303.36,0)
+\psline[linestyle=dashed,linewidth=.5pt]{<-}(75.52,0)(75.52,.25)(0,.25)
+\psline[linestyle=dashed,linewidth=.5pt]{<-}(60,0)(60,.5)(0,.5)
+\psline[linestyle=dotted,linewidth=.7pt]{<-}(-284.48,0)(-284.48,.25)(0,.25)
+\psline[linestyle=dotted,linewidth=.7pt]{<-}(-303.36,0)(-303.36,.5)(0,.5)
+\rput(-300,1){$f\colon y=cos(x)$}
+\rput[bl](88,.2){\texttt{acos}$(J)$}
+\psline[linewidth=.2pt]{->}(95,.18)(67,.01)
+\rput[br](-315,.2){\texttt{acos\_rel}$(J,I)$}
+\psline[linewidth=.2pt]{->}(-325,.18)(-296,.01)
+\rput(-360,-.15){$-2\pi$}
+\rput(-270,-.15){$-\frac{3\pi}{2}$}
+\rput(-180,-.15){$-\pi$}
+\rput(-90,-.15){$-\frac{\pi}{2}$}
+\rput(90,-.15){$\frac{\pi}{2}$}
+\rput(180,-.15){$\pi$}
+\end{minipage}
+
+\end{document}
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: t
+%%% End: 

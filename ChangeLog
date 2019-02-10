@@ -1,0 +1,642 @@
+2009-06-15  Frederic Goualard  <Frederic.Goualard@univ-nantes.fr>
+
+	* gaol/gaol_interval.h: corrected bug in is_symmetric() 
+
+2009-05-07  Frederic Goualard  <Frederic.Goualard@univ-nantes.fr>
+
+	* gaol/gaol_interval.h: added test in is_symmetric() so that an empty
+	  interval is considered as not symmetric.
+	  
+
+2009-03-06  Frederic Goualard  <Frederic.Goualard@univ-nantes.fr>
+
+    * gaol/gaol_parser.cpp: creating an interval from "inf" or "-inf" leads to [dmax, +inf] or
+        [-inf, -dmax] instead of <inf, inf> and <-inf, -inf>
+
+2009-03-03  Frederic Goualard  <Frederic.Goualard@univ-nantes.fr>
+
+    * gaol/sysdeps/gaol_fpu_sparc.h: removed file. File gaol/sysdeps/gaol_fpu_c99.h is
+        now used instead
+    * gaol/sysdeps/gaol_fpu_powerpc.h: removed file. File gaol/sysdeps/gaol_fpu_c99.h is
+        now used instead
+    * gaol/gaol_interval2.h, gaol/gaol_interval2.cpp: added support for single precision
+        interval computation of two intervals in parallel
+
+2009-03-02  Frederic Goualard  <Frederic.Goualard@univ-nantes.fr>
+
+    * gaol/gaol_interval.h: added support for SSE2 instructions
+            + changed interval::zero, interval::universe, interval::emptyset,
+                interval::positive, and interval::negative from static constants to functions
+
+2009-02-25	Frederic Goualard  <Frederic.Goualard@univ-nantes.fr>
+
+	* configure.ac: removed the --enable-fast option
+	* configure.ac: the --with-mathlib option has changed. It is now used to specify which mathematical
+		library to use
+	* doc/gaol.pdf: corrected error in manual whereby the --with-mathlib option was not documented
+			while the --with-mathlib-inc and --with-mathlib-lib defunct options still were.
+
+2009-02-23	Frederic Goualard  <Frederic.Goualard@univ-nantes.fr>
+
+	* gaol/gaol_interval.cpp: corrected bug in atanh() that prevented proper computation
+		whenever the argument was not strictly contained in [-1,1]
+
+2009-02-20  Frederic Goualard  <Frederic.Goualard@univ-nantes.fr>
+
+	* gaol/gaol_interval_parser.ypp: added the recognition of degenerate intervals of the form
+			"<a, a>"
+
+ 	* gaol/gaol_interval.cpp: nth_root() no longer considers the negative part of intervals
+		for both odd and even exponents.
+
+2008-01-22  Frederic Goualard  <Frederic.Goualard@univ-nantes.fr>
+
+	* doc/Makefile.am: added extra files to 'dist' (gaol.tex, gaol.pdf)
+
+2007-10-15 Frederic Goualard  <Frederic.Goualard@univ-nantes.fr>
+   * gaol/gaol_port.h: added constant two_power_51
+
+2007-09-14 Frederic Goualard  <Frederic.Goualard@univ-nantes.fr>
+
+   * gaol/gaol_port.h: replaced two_power_53 by two_power_52, which is the true value for
+         which the width between two consecutive floating-point numbers is greater
+         than 1
+
+2007-09-11 Frederic Goualard  <Frederic.Goualard@univ-nantes.fr>
+
+   * gaol/gaol_interval.cpp (acos_rel): added missing preservation of the rounding mode
+			in case 0 of the switch.
+
+2006-05-24  Frederic Goualard  <Frederic.Goualard@lina.univ-nantes.fr>
+
+	* gaol/gaol_double_op_fast.h: added preservation of the rounding mode code
+
+	* doc/gaol.texi (Configuration): removed information on Borland C++ Builder since this
+	  compiler is no longer supported.
+
+	* configure.ac: replaced option 'trust-rounding' by 'preserve-rounding'
+
+	* doc/gaol.texi: removed documentation on 'trust-rounding' option and added
+	  documentation on its replacement: 'preserve-rounding'
+
+2006-05-12  Frederic Goualard  <Frederic.Goualard@lina.univ-nantes.fr>
+
+	* gaol/gaol_config.h: modified definition of _GAOL_DLL_ for MSVC++ to depend
+	  on condition (export when compiling the library, or import when using the
+	  library). Should correct problems with interval constants being reported
+	  unknown at linkage.
+
+	* gaol/gaol_dtoa.h (GAOL_EXTERN): added differentiation of "extern" for MSVC++ and
+	  other compilers (MSVC++ uses a C++ version of dtoa and strtod)
+
+2006-04-27  Frederic Goualard  <Frederic.Goualard@lina.univ-nantes.fr>
+
+	* gaol/Makefile.am: correcte bug that prevented the installation of gaol_configuration.h
+
+2006-04-14  Frederic Goualard  <Frederic.Goualard@lina.univ-nantes.fr>
+
+	* gaol/Makefile.am (EXTRA_DIST): added gaol_version_autoconf.h.in
+
+2006-03-22  Frederic Goualard  <Frederic.Goualard@lina.univ-nantes.fr>
+
+	* doc/gaol.texi (Version information): added documentation for the versioning
+			information constants
+
+	* configure.ac: remove "LT_" variables for libtool versioning
+
+2006-03-17  Frederic Goualard  <Frederic.Goualard@lina.univ-nantes.fr>
+
+	* doc/gaol.texi (real_traits constants): NAN constant renamed
+			to GAOL_NAN to avoid name clashes
+
+2006-03-15  Frederic Goualard  <Frederic.Goualard@lina.univ-nantes.fr>
+
+	* configure.ac: added support for gcc option -frounding-math
+
+2006-02-23  Frederic Goualard  <Frederic.Goualard@lina.univ-nantes.fr>
+
+	* gaol/gaol_interval.cpp: added implementation of interval_format::agreeing
+
+	* gaol/gaol_interval_parser.ypp: changed name of gaol_error to gaol_error_bison to
+	  avoid calling the gaol_error function defined in gaol_common.cpp. Corrects a bug
+	  whereby syntax errors would be reported without ever raising an exception.
+
+2006-02-22  Frederic Goualard  <Frederic.Goualard@lina.univ-nantes.fr>
+
+	* gaol/gaol_port.h: added ln2_dn and ln2_up constants
+
+	* doc/gaol.texi (real_traits constants): added ln2_dn and ln2_up documentation
+
+2006-02-21  Frederic Goualard  <Frederic.Goualard@lina.univ-nantes.fr>
+
+	* gaol/gaol_common.h (gaol_ERROR): changed definition of macro gaol_ERROR
+
+	* configure.ac: added --enable-fast-math option
+
+2006-02-15  Frédéric Goualard  <Frederic.Goualard@univ-nantes.fr>
+
+	* gaol/gaol_interval.h: added extern declaration to hausdorff()
+
+2006-02-15  Frederic Goualard  <Frederic.Goualard@lina.univ-nantes.fr>
+
+	* doc/Makefile.am (html): modified the use of the DOXYGEN and DVIPS tests to avoid
+	  multiple definitions of targets "ps" and "html"
+
+2005-10-04  Frederic Goualard  <Frederic.Goualard@lina.univ-nantes.fr>
+
+	* doc/Makefile.am: added removal of html files for distclean target
+
+	* COPYING: replaced the GPL text by the LGPL text to make it consistent with the claim
+		in the documentation
+
+2005-08-12  Frédéric Goualard  <Frederic.Goualard@univ-nantes.fr>
+
+	* gaol/gaol_expression.h: added forward declaration of expr_node to comply with
+	  ISO C++
+
+2005-07-16  Frédéric Goualard  <Frederic.Goualard@univ-nantes.fr>
+
+	* configure.in: added tests with cppunit
+
+2005-06-30  Frederic Goualard  <Frederic.Goualard@lina.univ-nantes.fr>
+
+	* gaol/gaol_config.h: added specific definition of _GAOL_DLL_ for GCC
+
+	* gaol/gaol_mathlib.h (_MATHLIB_DLL_): added specific definition of _MATHLIB_DLL_ for GCC
+
+	* gaol/s_nextafter.c (s_nextafter): added case for GCC to attribute of prototype for
+		s_nextafter()
+
+	* configure.in: added options "-fvisibility-inlines-hidden -fvisibility=hidden" to CXXFLAGS
+
+	* gaol/gaol (_GAOL_DLL_): added specific definition of _GAOL_DLL_ for GCC
+
+2005-06-29  Frederic Goualard  <Frederic.Goualard@lina.univ-nantes.fr>
+
+	* configure.in: --enable-optimize is now the default
+
+2005-05-31    <Frederic.Goualard@lina.univ-nantes.fr>
+
+	* gaol/Makefile.am: added gaol_exact.h to headers
+
+	* gaol/gaol_interval_parser.ypp: renamed result_of_parsing, tmp_itv,
+		and yyerror to gaol_result_of_parsing, gaol_tmp_itv, and
+		gaol_error
+
+
+	* gaol/gaol_interval_lexer.lpp: renamed initialize_parsing() and
+		cleanup_parsing() to gaol_initialize_parsing() and
+		gaol_cleanup_parsing()
+
+	* gaol/gaol_parser.cpp (gaol_parse): removed definitions of
+		buffer_size and parse_buffer
+
+2005-05-21  Frédéric Goualard  <Frederic.Goualard@lina.univ-nantes.fr>
+
+	* gaol/gaol_common.cpp: added functions for automatic init/cleanup for the
+	  Borland C++ Builder version
+
+2005-05-20 Frédéric Goualard    <Frederic.Goualard@lina.univ-nantes.fr>
+
+	* gaol/sysdeps/gaol_interval_ix86_cpp.h (cos): corrected a bug induced by
+	  an improper use of initialization for the variables Il and Ir instead of an assignment
+
+2005-05-16    Frédéric Goualard   <Frederic.Goualard@lina.univ-nantes.fr>
+
+	* gaol/gaol_interval_lexer.lpp: replaced "global_parsing_flag" by "gaol_global_parsing_flag"
+		to avoid name clashes
+
+
+	* gaol/gaol_interval_parser.ypp: replaced "global_parsing_flag" by "gaol_global_parsing_flag"
+		to avoid name clashes
+
+2005-05-10    Frédéric Goualard   <Frederic.Goualard@lina.univ-nantes.fr>
+
+	* doc/gaol.texi (Initialization and cleanup): added documentation for the
+	  automatic initialization/cleanup features.
+
+	* gaol/gaol_common.h: added declaration of gaol_init to perform
+	  automatic initialization/cleanup
+
+2005-05-09  Frédéric Goualard   <Frederic.Goualard@lina.univ-nantes.fr>
+
+	* gaol/gaol_expr_visitor.h: added a virtual destruction for expr_visitor
+
+2005-03-25 Frédéric Goualard    <Frederic.Goualard@lina.univ-nantes.fr>
+
+	* gaol/sysdeps/gaol_interval_ix86_cpp.h: optimization of the sqrt_rel() function
+
+	* gaol/gaol_interval.cpp: modification of nth_root_rel to reuse sqrt_rel for n=2
+
+2005-03-24  Frédéric Goualard   <Frederic.Goualard@lina.univ-nantes.fr>
+
+	* gaol/gaol_interval.h: correction of typo 1159770 (SourceForge site)
+
+	* gaol/gaol_interval_parser.ypp: modified the syntax permitted in a string used
+		to create an interval: the expression may now contain intervals of
+		the form "[a, b]". E.g.:
+			interval x("[3.14,3.15]/[7,8]");
+
+	* doc/gaol.texi (Input format):
+	* gaol/gaol_interval_lexer.ll:
+	* gaol/gaol_interval_parser.yy: added handling of constant "pi"
+
+2005-03-24  Frédéric Goualard  <Frederic.Goualard@lina.univ-nantes.fr>
+
+	* doc/gaol.texi (Interval creation and assignment): addition of the
+		documentation for the interval(const char *const, const char *const)
+		constructor
+
+2005-03-24  Frédéric Goualard  <Frederic.Goualard@lina.univ-nantes.fr>
+
+	* gaol/gaol_interval.h: addition of the constructor
+		interval(const char *const, const char *const)
+
+2005-02-08  Frédéric Goualard  <Frederic.Goualard@lina.univ-nantes.fr>
+
+	* gaol/sysdeps/gaol_interval_ix86_cpp.h: removed calls to accessors left() and
+		right() of class interval in assembler code to avoid warning for lack of lvalue
+		in "m" input constraints
+
+2004-10-12  Frédéric Goualard  <Frederic.Goualard@lina.univ-nantes.fr>
+
+	* gaol/gaol_parser.h: added _GAOL_DLL_ specifier to parse_interval to allow for
+		its public use under windows.
+
+	* doc/gaol.texi (Output example): added information concerning the choice of the
+		precision (17) to be able to read accurately an interval from a string.
+
+2004-10-11  Frédéric Goualard  <Frederic.Goualard@lina.univ-nantes.fr>
+
+	* gaol/gaol_interval_lexer.lpp: added handling of '<' and '>'
+
+	* doc/gaol.texi (Input format): added documentation for the
+		reading of intervals represented as "<x,y>".
+
+	* gaol/gaol_interval_parser.ypp: added handling of degenerate
+		intervals entered as "<x,y>"
+
+2004-09-27  Frédéric Goualard  <Frederic.Goualard@lina.univ-nantes.fr>
+
+	* doc/gaol.texi (Interval constants): added documentation for interval::two_pi constant
+
+	* gaol/gaol_interval.cpp: corrected bug in acos_i
+		+ optimization of case "default" in acos_rel depending of the values of
+		kl and kr
+
+	* gaol/gaol_interval.h: added interval::two_pi constant
+
+2004-09-20  Frédéric Goualard  <Frederic.Goualard@lina.univ-nantes.fr>
+
+	* gaol/gaol_port.h: changed the definition of GAOL_INFINITY to circumvent a problem with
+		C++ libraries not defining numeric_limits<double>::infinity() correctly.
+
+2004-09-15  Frédéric Goualard  <Frederic.Goualard@lina.univ-nantes.fr>
+
+	* gaol/gaol_interval.cpp: corrected bug in is_canonical()
+
+	* gaol/gaol_limits.h: added infinity() method to specialization
+		for double
+
+	* gaol/gaol_port.h: replaced INFINITY by GAOL_INFINITY everywhere
+
+	* gaol/gaol_interval.cpp: corrected a bug in nb_fp_numbers()
+
+	* gaol/sysdeps/gaol_fpu_ix86.h: added get_fpu_sw and get_fpu_cw functions
+
+
+	* gaol/sysdeps/gaol_interval_generic_cpp.h: changed method to compute sqrt_rel
+		when I\subseteq[-oo,0]
+
+	* gaol/sysdeps/gaol_interval_ix86_cpp.h: corrected bug in sqrt_rel when
+		I\subseteq[-oo,0]
+
+	* gaol/sysdeps/gaol_interval_generic_cpp.h: modified the double negation
+		process in order to avoid problems when compiling on a computer
+		with fp registers whose mantissa is larger than the one of
+		type "double" (corrects a bug when compiling with Borland C++ Builder)
+
+2004-05-27  Frédéric Goualard  <Frederic.Goualard@lina.univ-nantes.fr>
+
+	* gaol/sysdeps/gaol_interval_ix86_cpp.h (midpoint): added explicit test for an
+		empty argument to avoid returning 0.0 if the interval is empty but
+		"symmetric" (e.g., [oo, -oo])
+
+2004-05-21  Frédéric Goualard  <Frederic.Goualard@lina.univ-nantes.fr>
+
+	* doc/gaol.texi (Interval functions): changed documentation for the chi() function
+		according to its new definition.
+
+	* gaol/gaol_interval.cpp: changed the definition of chi() from Kearfott's to
+		Ratscheck and Rokne's.
+
+	* gaol/gaol_interval.h: changed the signature of chi() from Kearfott's to
+		Ratscheck and Rokne's.
+
+2004-05-12  Frédéric Goualard  <Frederic.Goualard@lina.univ-nantes.fr>
+
+	* doc/gaol.texi (Output example): added documentation for the "width" interval output
+		format and modified the documentation for the "center" format. Corrected
+		the example by prefixing formats with "interval_format::"
+
+	* gaol/gaol_interval.cpp: added treatment for "width" format for interval output
+
+	* gaol/gaol_interval.h: added "width" format for interval output. The meaning of the
+		"center" output format changes.
+
+2004-04-30  Frédéric Goualard  <Frederic.Goualard@lina.univ-nantes.fr>
+
+	* gaol/sysdeps/gaol_interval_ix86_cpp.h: corrected bug in div_rel for negative K and
+		positive J (case "N1 P1")
+
+	* gaol/gaol_interval.cpp: modified smig and mig to avoid warning message on non-void function
+		not returning anything
+
+2004-04-23  Frédéric Goualard  <Frederic.Goualard@lina.univ-nantes.fr>
+
+	* gaol/sysdeps/gaol_interval_ix86_cpp.h: replaced the bugged version of sqrt_rel by
+		a call to nth_root_rel
+
+2004-04-07  Frédéric Goualard  <Frederic.Goualard@lina.univ-nantes.fr>
+
+	* doc/gaol.texi: added entry to document the new hausdorff() function + corrected
+		several typos.
+
+	* gaol/gaol_interval.cpp: corrected bug in smig() and mig() methods.
+		+ added hausdorff() function to compute hausdorff distance
+		between two intervals.
+
+2004-04-05  Frédéric Goualard  <Frederic.Goualard@lina.univ-nantes.fr>
+
+	* gaol/sysdeps/gaol_interval_generic_cpp.h: corrected a bug in midpoint():
+		if the interval is composed of three floats a<c<b and c is closer to
+		a than b, then rounding upward would return b instead of c.
+
+	* gaol/sysdeps/gaol_interval_ix86_cpp.h (midpoint): corrected a bug in midpoint():
+		if the interval is composed of three floats a<c<b and c is closer to
+		a than b, then rounding upward would return b instead of c.
+
+	* gaol/gaol_interval.cpp: corrected bug in hexadecimal display of intervals
+		by adding manipulator calls to fill fields to 8 digits with zeroes.
+
+	* doc/gaol.texi (Profiling): added documentation for the "timepiece" class and
+		corrected several typos.
+
+	* gaol/gaol_profile.h, gaol/gaol_profile.cpp: added the "timepiece" class
+
+2004-03-15  Frédéric Goualard  <Frederic.Goualard@lina.univ-nantes.fr>
+
+	* gaol/gaol_interval.cpp: corrected bug in asinh(): unnecessary intersection
+		with [0, +oo]
+
+	* gaol/gaol_port.h: Modified the isnan() function for the Borland C++ Builder
+		compiler to be an alias to _isnan().
+
+	* gaol/gaol_interval.h: modified tests for emptyness when compiling with
+		Borland C++ Builder since this compiler does not consider NaNs as
+		unordered.
+
+2004-03-11  Frédéric Goualard  <Frederic.Goualard@lina.univ-nantes.fr>
+
+	* gaol/gaol_interval.cpp: corrected two bugs in nth_root:
+		- For n even, the code was using I instead of Ipos
+		- for n odd, the code was not considering the fact that
+		  pow_dn and pow_up do not work with negative first arguments
+
+2004-02-20  Frédéric Goualard  <Frederic.Goualard@irin.univ-nantes.fr>
+
+	* doc/gaol.texi (Configuration): added documentation for option --enable-trust-rounding
+
+	* gaol/gaol_interval.cpp: added calls to GAOL_RND_UP() to functions where
+		the rounding direction may have been modified previously.
+
+	* configure.in: added option --enable-trust-rounding
+
+	* gaol/sysdeps/gaol_fpu_borlandc.h: replaced assembler code by calls
+		to _control87()
+
+2004-02-05  Frédéric Goualard  <Frederic.Goualard@irin.univ-nantes.fr>
+
+	* gaol/gaol_interval.cpp, gaol/gaol_interval.h: defining static constants of the
+		interval class in the header file if compiling with Borland C++ Builder
+		since they have scope file with this compiler.
+
+2004-01-29  Frédéric Goualard  <Frederic.Goualard@irin.univ-nantes.fr>
+
+	* gaol/gaol_interval.cpp: corrected prototypes of inv_dn and inv_up
+	+ corrected bug in nth_root_rel for even exponent: replaced J by Jpos.
+
+2004-01-21  Frédéric Goualard  <Frederic.Goualard@irin.univ-nantes.fr>
+
+	* gaol/s_nextafter.c (s_nextafter): added __declspec(dllexport) specification to
+		s_nextafter to allow its use outside of gaol
+
+	* gaol/gaol_interval.cpp: added case for __BORLANDC__ in inclusion of
+		gaol_interval_generic_cpp.h
+
+	* gaol/gaol_interval.h: added case for __BORLANDC__ in inclusion of
+		gaol_interval_generic.h
+
+2004-01-13  Frédéric Goualard  <Frederic.Goualard@irin.univ-nantes.fr>
+
+	* configure.in: added powerpc case
+
+	* gaol/gaol_interval.cpp: modified pow(interval,interval) such that
+		pow(interval,unsigned int) is called whenever the exponent is
+		an integer in disguise.
+
+	* gaol/gaol_interval_parser.ypp: added support for pow_itv_node
+
+	* gaol/gaol_expr_eval.h: added method for pow_itv_node
+
+	* gaol/gaol_expression.h: added pow_itv_node class
+
+	* gaol/gaol_interval.h: added test for being greater or equal to
+		std::numeric_limits<int>::min() in is_an_int() method
+
+2004-01-09  Frédéric Goualard  <Frederic.Goualard@irin.univ-nantes.fr>
+
+	* gaol/gaol_expression.cpp (gaol): replaced "<" by "<=" in
+		parenthesize_if_necessary to solve "x-(1-x)" being
+		displayed as "x-1-x"
+
+2003-12-09  Frédéric Goualard  <Frederic.Goualard@irin.univ-nantes.fr>
+
+	* gaol/gaol_profile.h: added intermediate_elapsed_time() function
+
+2003-12-02  Frederic Goualard  <Frederic.Goualard@irin.univ-nantes.fr>
+
+	* gaol/Makefile.am (YFLAGS): added option "-p gaol_"
+	(LFLAGS): added option "-Pgaol_"
+
+2003-11-05  Frédéric Goualard  <Frederic.Goualard@irin.univ-nantes.fr>
+
+	* gaol/gaol_common.cpp: call to interval::precision() instead
+		of cout.precision() in init()
+
+	* gaol/gaol_interval.h: added methods precision()
+
+	* gaol/gaol_interval.cpp: added string() conversion operator
+
+2003-10-29  Frédéric Goualard  <Frederic.Goualard@irin.univ-nantes.fr>
+
+	* doc/gaol.texi (Splitting methods): added information corresponding to point below
+
+	* gaol/gaol_interval.h: added temporary variables l and r in split() to
+		allow fro I1 or I2 to be the same as "this"
+
+	* Makefile.am (SUBDIRS): removed doc from SUBDIRS
+
+	* gaol/gaol_interval.h: changed the behavior of width() : now returns -1
+		whenever the interval is empty
+
+2003-10-19  Frédéric Goualard  <Frederic.Goualard@irin.univ-nantes.fr>
+
+	* doc/Makefile.am (CLEANFILES): added .PHONY for html target
+		+ added html/* to CLEANFILES
+
+2003-10-07  Frédéric Goualard  <Frederic.Goualard@irin.univ-nantes.fr>
+
+	* gaol/Makefile.am (tags): added tags target for etags
+
+2003-09-02  Frédéric Goualard  <Frederic.Goualard@irin.univ-nantes.fr>
+
+	* gaol/gaol_interval.h: added atan2() interval operator
+
+2002-12-02  Frederic Goualard  <Frederic.Goualard@irin.univ-nantes.fr>
+
+	* gaol/gaol_interval_lexer.ll: changed global_parsing_flag to false at
+		initialization
+
+	* gaol/gaol_interval_parser.yy: changed global_parsing_flag to false at
+		initialization
+
+2002-11-24  Frederic Goualard  <Frederic.Goualard@irin.univ-nantes.fr>
+
+	* gaol/gaol_port.cpp: modification of the implementation of gaol_signbit()
+
+2002-11-12  Frederic Goualard  <Frederic.Goualard@irin.univ-nantes.fr>
+
+	* gaol/gaol_common.cpp: added va_end() call in gaol_error()
+
+2002-08-28  Frederic Goualard  <Frederic.Goualard@irin.univ-nantes.fr>
+
+	* *.*: replaced inclusion of iostream by inclusion of iosfwd in all files
+		where only declaration of ostream/istream types was necessary
+
+2002-08-21  Frederic Goualard  <Frederic.Goualard@irin.univ-nantes.fr>
+
+	* gaol/Makefile.am (gaol_HEADERS): added gaol_mathlib.h to gaol_HEADERS
+
+	* gaol/gaol_double_op.h: includes gaol/gaol_mathlib.h instead of MathLib.h.
+
+	* gaol/gaol_mathlib.h: added gaol_mathlib.h as an interface to MathLib.
+
+	* gaol/gaol_common.cpp: added calls to init and cleanup code in
+		MathLib.
+
+2002-08-12  Frederic Goualard  <Frederic.Goualard@irin.univ-nantes.fr>
+
+	* configure.in: added -O option to CXXFLAGS whenever --enable-optimize=no in order
+		to circumvent the problem with registers when compiling ASM instructions on
+		ix86.
+	+ added test for ix86/cygwin host
+
+	* doc/Makefile.am (html): added check for existence of doxygen
+
+	* gaol/Makefile.am: added files related to parsing of intervals
+
+2002-08-11  Frédéric Goualard  <Frederic.Goualard@irin.univ-nantes.fr>
+
+	* configure.in: dereferenced variables with underscores are now
+		enclosed into curly brackets to comply with old versions
+		of /bin/sh
+
+2002-08-09  Frederic Goualard  <Frederic.Goualard@irin.univ-nantes.fr>
+
+	* gaol/gaol_interval.cpp: added return statement in function
+		gaol::operator>> line 167.
+
+	* check/gaolcc.in: replaced call to c++ by call to @CXX@
+
+2002-05-27  Frederic Goualard  <Frederic.Goualard@irin.univ-nantes.fr>
+
+	* gaol/gaol_interval.cpp: reusing the standard facility to display
+		floats instead of gay_dtoa() because this function does
+		not allow to choose the number of digits to display.
+
+2002-05-21  Frederic Goualard  <Frederic.Goualard@irin.univ-nantes.fr>
+
+	* gaol/gaol_interval.h: added istream facility.
+
+2002-05-09  Frederic Goualard  <Frederic.Goualard@irin.univ-nantes.fr>
+
+	* gaol/gaol_flt_output.cpp (fp_fixed_point): corrected a bug: sign
+		was missing for the case decpt>0
+
+2002-04-17  Frédéric Goualard  <Frederic.Goualard@irin.univ-nantes.fr>
+
+	* gaol/sysdeps/gaol_interval_ix86_cpp.h: some local variables
+		declared static to allow their use in asm statements when
+		even when using expensive optimizations
+
+2002-04-15  Frederic Goualard  <Frederic.Goualard@irin.univ-nantes.fr>
+
+	* gaol/gaol_interval_lexer.ll: corrected a bug that prevented the
+		correct enclosing of constants not representable by
+		floating-point numbers.
+
+	* configure.in: added -DSET_INEXACT for dtoa.c
+		+ added CFLAGS for dtoa.c
+
+2002-03-31  Frédéric Goualard  <Frederic.Goualard@irin.univ-nantes.fr>
+
+	* configure.in: added --enable-optimize option
+
+2001-11-27  Frédéric Goualard  <Frederic.Goualard@epfl.ch>
+
+	* gaol/gaol_interval.cpp: changed format for printing intervals: if
+		format==bounds and left()==right(), we print [left()] with
+		left() rounded upward instead of [left(), right()].
+
+2001-11-25  Frédéric Goualard  <Frederic.Goualard@epfl.ch>
+
+	* gaol/gaol_interval.cpp: added function nb_fp_numbers()
+
+2001-11-22  Frédéric Goualard  <Frederic.Goualard@epfl.ch>
+
+	* gaol/sysdeps/gaol_interval_ix86_cpp.h: corrected bug in
+		sqrt() and sqrt_rel()
+
+2001-11-19  Frédéric Goualard  <Frederic.Goualard@epfl.ch>
+
+	* gaol/gaol_interval.cpp (_nth_root_rel): corrected a bug:
+		double pow(double) does not work with non-integral
+		exponent for negative first argument. Fix: negate
+		twice the argument.
+
+	* gaol/gaol_interval.h: added width() method
+
+2001-10-30  Frédéric Goualard  <Frederic.Goualard@epfl.ch>
+
+	* gaol/gaol_interval.h: add sqrt() and nth_root
+
+	* configure.in: quoted variables with underscores in tests to
+		cope with idiosyncrasies of old shells
+
+2001-10-26  Frédéric Goualard  <Frederic.Goualard@epfl.ch>
+
+	* gaol/gaol_interval.h: added methods midpoint() and mid()
+
+2001-10-25  Frédéric Goualard  <Frederic.Goualard@epfl.ch>
+
+	* gaol/gaol_interval.cpp:
+		+ replaced interval_format union by interval_format struct
+		with embedded union
+
+	* gaol/gaol_common.h: added gaol_error
+
+2001-10-16  Frédéric Goualard  <Frederic.Goualard@epfl.ch>
+
+	* gaol/gaol_interval.h: added is_a_double() and is_an_int() methods
+

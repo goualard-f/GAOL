@@ -1,0 +1,48 @@
+/*-*-C++-*------------------------------------------------------------------
+ * gaol -- NOT Just Another Interval Library
+ *--------------------------------------------------------------------------
+ * This file is part of the gaol distribution. Gaol was first
+ * developed at the Swiss Federal Institute of Technology, Lausanne,
+ * Switzerland, and is now developed at the Laboratoire d'Informatique de
+ * Nantes-Atlantique, France.
+ *
+ * Copyright (c) 2001 Swiss Federal Institute of Technology, Switzerland
+ * Copyright (c) 2002-2011 Laboratoire d'Informatique de
+ *                         Nantes-Atlantique, France
+ *--------------------------------------------------------------------------
+ * gaol is a software distributed WITHOUT ANY WARRANTY. Read the associated
+ * COPYING file for information.
+ *--------------------------------------------------------------------------
+ * SVN: $Id$
+ *--------------------------------------------------------------------------*/
+
+/*!
+  \file   gaol
+  \brief
+
+  File to be included by applications that use the gaol library
+
+  \author Goualard Frédéric
+  \date   2001-09-28
+*/
+
+
+#ifndef __gaol__
+#define __gaol__
+
+#include "gaol/gaol_config.h"
+#include "gaol/gaol_version.h"
+#include "gaol/gaol_common.h"
+#include "gaol/gaol_fpu.h"
+#include "gaol/gaol_double_op.h"
+#include "gaol/gaol_profile.h"
+#include "gaol/gaol_interval.h"
+#include "gaol/gaol_exceptions.h"
+#include "gaol/gaol_intervalf.h"
+
+#if USING_SSE3_INSTRUCTIONS
+#  include "gaol/gaol_interval2f.h"
+#include "gaol/gaol_allocator.h"
+#endif // USING_SSE3_INSTRUCTIONS
+
+#endif /* __gaol__ */

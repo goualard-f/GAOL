@@ -1,0 +1,8 @@
+\def\updated{@GAOL_UPDATED@}
+\def\edition{@GAOL_EDITION@}
+\def\version{@GAOL_VERSION@}
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: t
+%%% End: 

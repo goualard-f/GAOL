@@ -1,0 +1,304 @@
+%{
+/*-*-C++-*------------------------------------------------------------------
+ * gaol -- NOT Just Another Interval Library
+ *--------------------------------------------------------------------------
+ * This file is part of the gaol distribution. Gaol was primarily
+ * developed at the Swiss Federal Institute of Technology, Lausanne,
+ * Switzerland, and is now developed at the Laboratoire d'Informatique de
+ * Nantes-Atlantique, France.
+ *
+ * Copyright (c) 2001 Swiss Federal Institute of Technology, Switzerland
+ * Copyright (c) 2002-2006 Laboratoire d'Informatique de
+ *                         Nantes-Atlantique, France
+ *--------------------------------------------------------------------------
+ * gaol is a software distributed WITHOUT ANY WARRANTY. Read the associated
+ * COPYING file for information.
+ *--------------------------------------------------------------------------
+ * CVS: $Id: gaol_interval_parser.ypp 191 2012-03-06 17:08:58Z goualard $
+ * Last modified:
+ * By:
+ *--------------------------------------------------------------------------*/
+
+#include <cstdarg>
+#include <cstdlib>
+#include <cmath>
+#include <string>
+#include "gaol/gaol_common.h"
+#include "gaol/gaol_interval.h"
+#include "gaol/gaol_expression.h"
+#include "gaol/gaol_limits.h"
+#include "gaol/gaol_exceptions.h"
+
+#undef yyerror
+#define yyerror gaol_error_bison
+
+int gaol_error_bison(char *s ...);
+int gaol_lex(void);
+
+using namespace gaol;
+extern interval *gaol_result_of_parsing;
+extern interval gaol_tmp_itv;
+extern bool gaol_global_parsing_flag;
+%}
+
+%union {
+  int i;
+  double d;
+  Interval_struct itv;
+  expr_node* expr;
+}
+
+
+%token EMPTY_STR INFINITY_STR DMIN_STR DMAX_STR PI_STR
+%token EXP_STR LOG_STR POW_STR NTH_ROOT_STR SQRT_STR
+%token COS_STR SIN_STR TAN_STR ATAN2_STR
+%token COSH_STR SINH_STR TANH_STR
+%token ACOS_STR ASIN_STR ATAN_STR
+%token ACOSH_STR ASINH_STR ATANH_STR
+%token UNEXPECTED_CHAR
+%token<d> NUMBER
+%token<itv> INTERVAL_CST
+
+%type<expr> expression function_call
+%type<itv> parsed_interval itv_expr_aux itv_function_call
+
+%left '+' '-'
+%left '*' '/'
+%left UMINUS UPLUS
+
+%start itv_expr
+
+%%
+
+itv_expr
+	: itv_expr_aux				{ *gaol_result_of_parsing = interval($1.l,$1.r); }
+
+
+itv_expr_aux
+	: parsed_interval					{ $$ = $1; }
+	| itv_expr_aux '+' itv_expr_aux		{ gaol_tmp_itv=interval($1.l,$1.r)+interval($3.l,$3.r);
+						  					$$.l=gaol_tmp_itv.left(); $$.r=gaol_tmp_itv.right(); }
+	| itv_expr_aux '-' itv_expr_aux		{ gaol_tmp_itv=interval($1.l,$1.r)-interval($3.l,$3.r);
+						  					$$.l=gaol_tmp_itv.left(); $$.r=gaol_tmp_itv.right(); }
+	| itv_expr_aux '*' itv_expr_aux		{ gaol_tmp_itv=interval($1.l,$1.r)*interval($3.l,$3.r);
+						  					$$.l=gaol_tmp_itv.left(); $$.r=gaol_tmp_itv.right(); }
+	| itv_expr_aux '/' itv_expr_aux		{ gaol_tmp_itv=interval($1.l,$1.r)/interval($3.l,$3.r);
+						  					$$.l=gaol_tmp_itv.left(); $$.r=gaol_tmp_itv.right(); }
+	| '-' itv_expr_aux %prec UMINUS		{ gaol_tmp_itv= -interval($2.l,$2.r);
+						  					$$.l=gaol_tmp_itv.left(); $$.r=gaol_tmp_itv.right(); }
+	| '+' itv_expr_aux %prec UPLUS		{ $$ = $2; }
+	| itv_function_call					{ $$ = $1; }
+	| '(' itv_expr_aux ')'				{ $$ = $2; }
+	;
+
+
+itv_function_call
+	: COS_STR '(' itv_expr_aux ')'						{ gaol_tmp_itv=cos(interval($3.l,$3.r));
+						  									$$.l=gaol_tmp_itv.left(); $$.r=gaol_tmp_itv.right(); }
+	| SIN_STR '(' itv_expr_aux ')'						{ gaol_tmp_itv=sin(interval($3.l,$3.r));
+						  									$$.l=gaol_tmp_itv.left(); $$.r=gaol_tmp_itv.right(); }
+	| TAN_STR '(' itv_expr_aux ')'						{ gaol_tmp_itv=tan(interval($3.l,$3.r));
+						  									$$.l=gaol_tmp_itv.left(); $$.r=gaol_tmp_itv.right(); }
+	| ATAN2_STR '(' itv_expr_aux ',' itv_expr_aux ')' 	{ gaol_tmp_itv=atan2(interval($3.l,$3.r),
+							          						interval($5.l,$5.r));
+						    								$$.l=gaol_tmp_itv.left(); $$.r=gaol_tmp_itv.right(); }
+	| ACOS_STR '(' itv_expr_aux ')'						{ gaol_tmp_itv=acos(interval($3.l,$3.r));
+						  									$$.l=gaol_tmp_itv.left(); $$.r=gaol_tmp_itv.right(); }
+	| ASIN_STR '(' itv_expr_aux ')'						{ gaol_tmp_itv=asin(interval($3.l,$3.r));
+						  									$$.l=gaol_tmp_itv.left(); $$.r=gaol_tmp_itv.right(); }
+	| ATAN_STR '(' itv_expr_aux ')'						{ gaol_tmp_itv=atan(interval($3.l,$3.r));
+						  									$$.l=gaol_tmp_itv.left(); $$.r=gaol_tmp_itv.right(); }
+	| COSH_STR '(' itv_expr_aux ')'						{ gaol_tmp_itv=cosh(interval($3.l,$3.r));
+						  									$$.l=gaol_tmp_itv.left(); $$.r=gaol_tmp_itv.right(); }
+	| SINH_STR '(' itv_expr_aux ')'						{ gaol_tmp_itv=sinh(interval($3.l,$3.r));
+						  									$$.l=gaol_tmp_itv.left(); $$.r=gaol_tmp_itv.right(); }
+	| TANH_STR '(' itv_expr_aux ')'						{ gaol_tmp_itv=tanh(interval($3.l,$3.r));
+						  									$$.l=gaol_tmp_itv.left(); $$.r=gaol_tmp_itv.right(); }
+	| ACOSH_STR '(' itv_expr_aux ')'					{ gaol_tmp_itv=acosh(interval($3.l,$3.r));
+						  									$$.l=gaol_tmp_itv.left(); $$.r=gaol_tmp_itv.right(); }
+	| ASINH_STR '(' itv_expr_aux ')'					{ gaol_tmp_itv=asinh(interval($3.l,$3.r));
+						  									$$.l=gaol_tmp_itv.left(); $$.r=gaol_tmp_itv.right(); }
+	| ATANH_STR '(' itv_expr_aux ')'					{ gaol_tmp_itv=atanh(interval($3.l,$3.r));
+						  									$$.l=gaol_tmp_itv.left(); $$.r=gaol_tmp_itv.right(); }
+	| EXP_STR '(' itv_expr_aux ')'						{ gaol_tmp_itv=exp(interval($3.l,$3.r));
+						  									$$.l=gaol_tmp_itv.left(); $$.r=gaol_tmp_itv.right(); }
+	| LOG_STR '(' itv_expr_aux ')'						{ gaol_tmp_itv=log(interval($3.l,$3.r));
+						  									$$.l=gaol_tmp_itv.left(); $$.r=gaol_tmp_itv.right(); }
+	| POW_STR '(' itv_expr_aux ',' itv_expr_aux ')'   	{ gaol_tmp_itv=
+						   									pow(interval($3.l,$3.r),interval($5.l,$5.r));
+						   									$$.l=gaol_tmp_itv.left(); $$.r=gaol_tmp_itv.right(); }
+	| SQRT_STR '(' itv_expr_aux ')'						{ gaol_tmp_itv=sqrt(interval($3.l,$3.r));
+						  									$$.l=gaol_tmp_itv.left(); $$.r=gaol_tmp_itv.right(); }
+	| NTH_ROOT_STR '(' itv_expr_aux ',' itv_expr_aux ')' { interval tmp($5.l,$5.r);
+														   if (!tmp.is_an_int()) {
+					                                       		// not an int?
+																$$.l=1; $$.r=-1;
+																gaol_ERROR(invalid_action_error,
+																	"nth_root used with non integral 2nd arg.");
+														    } else {
+					     										gaol_tmp_itv=nth_root(interval($3.l,$3.r),int($5.l));
+						       										$$.l=gaol_tmp_itv.left(); $$.r=gaol_tmp_itv.right(); }
+														    }
+	;
+
+parsed_interval
+	: expression						{ 	gaol_global_parsing_flag = evaluate_left_right(expression(*$1),
+																gaol_result_of_parsing);
+											delete $1;
+							  				$$.l=gaol_result_of_parsing->left();
+					          				$$.r=gaol_result_of_parsing->right();
+										}
+
+	| EMPTY_STR							{ 	*gaol_result_of_parsing = interval::emptyset();
+					  						gaol_global_parsing_flag = true;
+											$$.l=gaol_result_of_parsing->left();
+					  						$$.r=gaol_result_of_parsing->right();
+										}
+
+	| '[' expression ']'    			{	gaol_global_parsing_flag = evaluate_left_right(expression(*$2),
+																gaol_result_of_parsing);
+					  						delete $2;
+											$$.l=gaol_result_of_parsing->left();
+					  						$$.r=gaol_result_of_parsing->right();
+										}
+	| '[' expression ',' expression ']'	{ 	gaol_global_parsing_flag = evaluate_left_right(expression(*$2),
+																			expression(*$4),
+																			gaol_result_of_parsing);
+					  						delete $2;
+					  						delete $4;
+                                          	$$.l=gaol_result_of_parsing->left();
+					  						$$.r=gaol_result_of_parsing->right();
+										}
+	| '[' EMPTY_STR ']'					{ 	*gaol_result_of_parsing = interval::emptyset();
+					  						gaol_global_parsing_flag = true;
+                                          	$$.l=gaol_result_of_parsing->left();
+					  						$$.r=gaol_result_of_parsing->right();
+										}
+	| '<' expression ',' expression '>' { 	gaol_global_parsing_flag = evaluate_left_right(expression(*$2),
+																							expression(*$4),
+																							gaol_result_of_parsing);
+											delete $2;
+											delete $4;
+                                          	$$.l=gaol_result_of_parsing->left();
+					  						$$.r=gaol_result_of_parsing->right();
+											if ($$.l != $$.r) {
+												gaol_ERROR(input_format_error, std::string("bounds of degenerate interval do not evaluate to the same value"));
+											}
+										}
+	;
+
+expression
+	: NUMBER					{ 	$$ = new double_node($1);
+					  				$$->inc_refcount(); }
+	| DMIN_STR					{ 	$$ = new double_node(std::numeric_limits<double>::min());
+					  				$$->inc_refcount(); }
+	| DMAX_STR					{ 	$$ = new double_node(std::numeric_limits<double>::max());
+					  				$$->inc_refcount(); }
+	| PI_STR					{ 	$$ = new interval_node(interval::pi());
+	                                $$->inc_refcount(); }
+	| INTERVAL_CST              { 	$$ = new interval_node(interval($1.l,$1.r));
+					  				$$->inc_refcount(); }
+	| INFINITY_STR				{ 	$$ = new double_node(GAOL_INFINITY);
+					  				$$->inc_refcount(); }
+	| expression '+' expression	{ 	$$ = new add_node(*$1,*$3);
+					  				$$->inc_refcount(); }
+	| expression '-' expression	{ 	$$ = new sub_node(*$1,*$3);
+					  				$$->inc_refcount(); }
+	| expression '*' expression { 	$$ = new mult_node(*$1,*$3);
+					  				$$->inc_refcount(); }
+	| expression '/' expression {	$$ = new div_node(*$1,*$3);
+					  				$$->inc_refcount(); }
+	| '-' expression %prec UMINUS { $$ = new unary_minus_node(*$2);
+					  				$$->inc_refcount(); }
+	| '+' expression %prec UPLUS  { $$ = $2; }
+	| function_call				{ $$ = $1; }
+	| '(' expression ')'		{ $$ = $2; }
+	;
+
+function_call
+	: COS_STR '(' expression ')'					{ 	$$ = new cos_node(*$3);
+					  									$$->inc_refcount(); }
+	| SIN_STR '(' expression ')'  					{ 	$$ = new sin_node(*$3);
+					  									$$->inc_refcount(); }
+	| TAN_STR '(' expression ')'  					{ 	$$ = new tan_node(*$3);
+					  									$$->inc_refcount(); }
+	| ATAN2_STR '(' expression ',' expression ')'	{ 	$$ = new atan2_node(*$3, *$5);
+					  									$$->inc_refcount(); }
+	| ACOS_STR '(' expression ')'					{ 	$$ = new acos_node(*$3);
+					  									$$->inc_refcount(); }
+	| ASIN_STR '(' expression ')'  					{ 	$$ = new asin_node(*$3);
+					  									$$->inc_refcount(); }
+	| ATAN_STR '(' expression ')'  					{ 	$$ = new atan_node(*$3);
+					  									$$->inc_refcount(); }
+	| COSH_STR '(' expression ')'					{ 	$$ = new cosh_node(*$3);
+														$$->inc_refcount(); }
+	| SINH_STR '(' expression ')'  					{ 	$$ = new sinh_node(*$3);
+					  									$$->inc_refcount(); }
+	| TANH_STR '(' expression ')'  					{ 	$$ = new tanh_node(*$3);
+					  									$$->inc_refcount(); }
+	| ACOSH_STR '(' expression ')'					{ 	$$ = new acosh_node(*$3);
+					  									$$->inc_refcount(); }
+	| ASINH_STR '(' expression ')'  				{ 	$$ = new asinh_node(*$3);
+					  									$$->inc_refcount(); }
+	| ATANH_STR '(' expression ')'  				{ 	$$ = new atanh_node(*$3);
+					  									$$->inc_refcount(); }
+	| EXP_STR '(' expression ')'   					{ 	$$ = new exp_node(*$3);
+					  									$$->inc_refcount(); }
+	| LOG_STR '(' expression ')'   					{ 	$$ = new log_node(*$3);
+					  									$$->inc_refcount(); }
+	| POW_STR '(' expression ',' expression ')'   	{ 	interval tmp;
+					  									gaol_global_parsing_flag =
+					    									evaluate_expr(expression(*$5),tmp);
+														if (!gaol_global_parsing_flag) { // Error?
+					     									$$ = the_null_expr;
+					     									$$->inc_refcount();
+                                          				} else {
+					     									if (!tmp.is_an_int()) {
+					        									// not an int in disguise?
+																$$ = new pow_itv_node(*$3,*$5);
+																$$->inc_refcount();
+       					     								} else {
+					        									if (tmp.left() > 0) {
+					           										$$ = new pow_node(*$3,(unsigned int)(tmp.left()));
+	 				           										$$->inc_refcount();
+                                               					} else {
+						  											expr_node *one = new double_node(1.0);
+					          										one->inc_refcount();
+						  											if (tmp.left() < 0) {
+					           											// translating x^(-a) into 1/(x^a)
+						     											expr_node *e = new pow_node(*$3,
+																							(unsigned int)(-tmp.left()));
+						     											e->inc_refcount();
+						     											$$ = new div_node(*one,*e);
+						     											$$->inc_refcount();
+																	} else {  // tmp == 0.0
+						     											$$ = one;
+						 											}
+                                                				}
+					     									}
+                                          				}
+                                        			}
+	| SQRT_STR '(' expression ')'					{	$$ = new nth_root_node(*$3,2);
+					  									$$->inc_refcount();
+													}
+	| NTH_ROOT_STR '(' expression ',' expression ')' { 	interval tmp;
+					  									gaol_global_parsing_flag =
+					    									evaluate_expr(expression(*$5),tmp);
+														if (!tmp.is_an_int() || !gaol_global_parsing_flag) {
+					     									// not an int?
+															$$ = the_null_expr;
+															$$->inc_refcount();
+       					  								} else {
+					     									$$ = new nth_root_node(*$3,int(tmp.left()));
+					     									$$->inc_refcount();
+					 									}
+													  }
+	;
+
+%%
+
+int gaol_error_bison(char *s ...)
+{
+  gaol_global_parsing_flag = false;
+  return 0; // An error occurred
+}

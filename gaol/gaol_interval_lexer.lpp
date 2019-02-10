@@ -1,0 +1,140 @@
+%{
+/*-*-C++-*------------------------------------------------------------------
+ * gaol -- NOT Just Another Interval Library
+ *--------------------------------------------------------------------------
+ * This file is part of the gaol distribution. Gaol was primarily
+ * developed at the Swiss Federal Institute of Technology, Lausanne,
+ * Switzerland, and is now developed at the Laboratoire d'Informatique de
+ * Nantes-Atlantique, France.
+ *
+ * Copyright (c) 2001 Swiss Federal Institute of Technology, Switzerland
+ * Copyright (c) 2002-2006 Laboratoire d'Informatique de
+ *                         Nantes-Atlantique, France
+ *--------------------------------------------------------------------------
+ * gaol is a software distributed WITHOUT ANY WARRANTY. Read the associated
+ * COPYING file for information.
+ *--------------------------------------------------------------------------
+ * CVS: $Id: gaol_interval_lexer.lpp 191 2012-03-06 17:08:58Z goualard $
+ * Last modified:
+ * By:
+ *--------------------------------------------------------------------------*/
+
+#include <cstdio>
+#include <cstdlib>
+#include "gaol/gaol_config.h"
+#include "gaol/gaol_interval.h"
+#include "gaol/gaol_expression.h"
+#include "gaol/gaol_exceptions.h"
+
+
+/*
+  The following 'namespace' statement must appear before including
+  gaol/gaol_interval_parser.h
+ */
+using namespace gaol;
+
+#include "gaol/gaol_interval_parser.h"
+#include "gdtoa/gdtoa.h"
+#include "gaol/gaol_exact.h"
+#include "gaol/gaol_fpu.h"
+
+#define YY_NEVER_INTERACTIVE 1
+
+
+extern int gaol_error(char *s ...);
+%}
+
+DIGIT		[0-9]
+INT		{DIGIT}+
+E 		[eE][+-]?{DIGIT}+
+SPACE		[ \t\r]+
+
+%%
+
+"empty"		{ return EMPTY_STR; }
+"inf"		{ return INFINITY_STR; }
+"pi"		{ return PI_STR; }
+"dmin"                     { return DMIN_STR; }
+"dmax"                    { return DMAX_STR; }
+"exp"		{ return EXP_STR; }
+"log"		{ return LOG_STR; }
+"pow"		{ return POW_STR; }
+"nth_root"	{ return NTH_ROOT_STR; }
+"sqrt"		{ return SQRT_STR; }
+"cos"		{ return COS_STR; }
+"sin"		{ return SIN_STR; }
+"tan"		{ return TAN_STR; }
+"atan2"		{ return ATAN2_STR; }
+"cosh"                      { return COSH_STR; }
+"sinh"                       { return SINH_STR; }
+"tanh"                      { return TANH_STR; }
+"acos"       	{ return ACOS_STR; }
+"asin"       	{ return ASIN_STR; }
+"atan"       	{ return ATAN_STR; }
+"acosh"       	{ return ACOSH_STR; }
+"asinh"       	{ return ASINH_STR; }
+"atanh"       	{ return ATANH_STR; }
+"["		{ return '['; }
+"]"		{ return ']'; }
+"<"		{ return '<'; }
+">"		{ return '>'; }
+"("		{ return '('; }
+")"		{ return ')'; }
+","		{ return ','; }
+"+"		{ return '+'; }
+"-"		{ return '-'; }
+"*"		{ return '*'; }
+"/"		{ return '/'; }
+
+{INT}		{       GAOL_RND_PRESERVE();
+                round_nearest();
+                strtord(gaol_text,NULL,FPI_Round_near,&gaol_lval.d);
+                GAOL_RND_RESTORE();
+                return NUMBER;
+            }
+
+{DIGIT}+{E} |
+{DIGIT}*"."{DIGIT}+({E})? |
+{DIGIT}+"."{DIGIT}*({E})?	{
+                GAOL_RND_PRESERVE();
+                round_nearest();
+                clear_inexact();
+                strtord(gaol_text,NULL,FPI_Round_down,&gaol_lval.d);
+                if (get_inexact()) {  // The number has been rounded?
+                                      // Then we will represent it with an interval
+                    (gaol_lval.itv).l=gaol_lval.d;
+                    strtord(gaol_text,NULL,FPI_Round_up,&(gaol_lval.itv).r);
+                    GAOL_RND_RESTORE();
+                    return INTERVAL_CST;
+                }
+                GAOL_RND_RESTORE();
+                return NUMBER;
+            }
+{SPACE}		{  }
+.		{ return UNEXPECTED_CHAR; /* Just to avoid stopping here */ }
+%%
+
+YY_BUFFER_STATE gaol_interval_parsing_buffer;
+interval *gaol_result_of_parsing;
+interval gaol_tmp_itv;
+// Any error during the parsing?
+bool gaol_global_parsing_flag;
+extern int gaol_debug;
+
+void gaol_initialize_parsing(const char* const s, interval* itv)
+{
+  gaol_interval_parsing_buffer = gaol__scan_string(s);
+  gaol_result_of_parsing = itv;
+  gaol_global_parsing_flag = false;
+}
+
+bool gaol_cleanup_parsing(void)
+{
+  gaol__delete_buffer(gaol_interval_parsing_buffer);
+  return gaol_global_parsing_flag;
+}
+
+int gaol_wrap(void)
+{
+  return 1;
+}
