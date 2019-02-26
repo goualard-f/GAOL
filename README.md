@@ -1,3 +1,4 @@
-<center>GAOL</center>
+<center>***GAOL***
 <em>Not Just Another Interval Library</em>
+</center>
 
