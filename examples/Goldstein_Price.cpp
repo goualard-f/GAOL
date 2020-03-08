@@ -35,7 +35,7 @@ int main(void)
 
   cout.precision(16);
 
-
+  cout << (interval::universe()*interval(0.,0.)) << endl;
   reset_time();
   for (unsigned int i=0;i<1000000;++i) {
     z=(interval(1,1)+pow(x+y,2)*(interval(19,19)-
