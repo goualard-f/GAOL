@@ -42,6 +42,8 @@ public:
 
   void test_constructor_string() {
     interval a("empty"), b("[empty]");
+		interval c("5.80258497501207e-14");
+		CPPUNIT_ASSERT(!c.is_empty());
     TEST_EMPTY(a);
     TEST_EMPTY(b);
     TEST_INOUT_EQ("[3,4]",interval(3,4));

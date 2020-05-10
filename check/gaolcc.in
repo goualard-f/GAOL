@@ -1,4 +1,4 @@
 #!/bin/bash
 fic=$1
 shift
-@CXX@ @CXXFLAGS@ -I.. -L../gaol/.libs -I. -o `basename $fic .cpp` `basename $fic .cpp`.cpp -lgaol -lm -lultim -lgdtoa "$@"
+@CXX@ @CXXFLAGS@ -I.. -L../gaol/.libs -I. -o `basename $fic .cpp` `basename $fic .cpp`.cpp -lgaol -lm -lultim "$@"

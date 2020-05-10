@@ -161,16 +161,14 @@ libgaol_la_LIBADD =
 am__libgaol_la_SOURCES_DIST = gaol_interval.cpp gaol_profile.cpp \
 	gaol_common.cpp gaol_parser.cpp gaol_expression.cpp \
 	gaol_interval_parser.cpp gaol_interval_lexer.cpp gaol_port.cpp \
-	gaol_flt_output.cpp gaol_exceptions.cpp gaol_init_cleanup.cpp \
-	s_nextafter.c gaol_exact.c gaol_intervalf.cpp \
-	gaol_interval2f.cpp
+	gaol_exceptions.cpp gaol_init_cleanup.cpp s_nextafter.c \
+	gaol_exact.c gaol_intervalf.cpp gaol_interval2f.cpp
 @COMPILE_INTERVAL2_TRUE@am__objects_1 = gaol_interval2f.lo
 am_libgaol_la_OBJECTS = gaol_interval.lo gaol_profile.lo \
 	gaol_common.lo gaol_parser.lo gaol_expression.lo \
 	gaol_interval_parser.lo gaol_interval_lexer.lo gaol_port.lo \
-	gaol_flt_output.lo gaol_exceptions.lo gaol_init_cleanup.lo \
-	s_nextafter.lo gaol_exact.lo gaol_intervalf.lo \
-	$(am__objects_1)
+	gaol_exceptions.lo gaol_init_cleanup.lo s_nextafter.lo \
+	gaol_exact.lo gaol_intervalf.lo $(am__objects_1)
 libgaol_la_OBJECTS = $(am_libgaol_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
@@ -244,8 +242,8 @@ am__library_include_HEADERS_DIST = gaol gaol_assert.h gaol_exact.h \
 	gaol_expression.h gaol_limits.h gaol_expr_eval.h \
 	gaol_expr_visitor.h gaol_parameters.h \
 	gaol_double_op_apmathlib.h gaol_double_op_crlibm.h \
-	gaol_flags.h gaol_parser.h gaol_double_op.h gaol_flt_output.h \
-	gaol_port.h gaol_fpu.h gaol_fpu_fenv.h gaol_profile.h gaol.h \
+	gaol_flags.h gaol_parser.h gaol_double_op.h gaol_port.h \
+	gaol_fpu.h gaol_fpu_fenv.h gaol_profile.h gaol.h \
 	gaol_eval_stack.h gaol_init_cleanup.h gaol_version.h \
 	gaol_allocator.h gaol_interval_fpu.h gaol_interval_sse.h \
 	gaol_intervalf.h gaol_interval2f.h
@@ -427,7 +425,7 @@ libgaol_la_SOURCES = \
 	gaol_interval.cpp gaol_profile.cpp gaol_common.cpp \
 	gaol_parser.cpp gaol_expression.cpp \
 	gaol_interval_parser.cpp gaol_interval_lexer.cpp gaol_port.cpp \
-	gaol_flt_output.cpp gaol_exceptions.cpp gaol_init_cleanup.cpp s_nextafter.c \
+	gaol_exceptions.cpp gaol_init_cleanup.cpp s_nextafter.c \
     gaol_exact.c gaol_intervalf.cpp $(INTERVAL2_SOURCE)
 
 LFLAGS = -Pgaol_
@@ -436,7 +434,7 @@ library_includedir = $(includedir)/gaol
 library_include_HEADERS = gaol gaol_assert.h gaol_exact.h gaol_interval.h gaol_common.h gaol_exceptions.h \
 	gaol_interval_parser.h gaol_config.h gaol_configuration.h gaol_expression.h gaol_limits.h \
 	gaol_expr_eval.h  gaol_expr_visitor.h gaol_parameters.h \
-	gaol_double_op_apmathlib.h gaol_double_op_crlibm.h gaol_flags.h gaol_parser.h gaol_double_op.h gaol_flt_output.h \
+	gaol_double_op_apmathlib.h gaol_double_op_crlibm.h gaol_flags.h gaol_parser.h gaol_double_op.h \
 	gaol_port.h gaol_fpu.h gaol_fpu_fenv.h gaol_profile.h gaol.h \
 	gaol_eval_stack.h gaol_init_cleanup.h gaol_version.h gaol_allocator.h \
 	gaol_interval_fpu.h gaol_interval_sse.h gaol_intervalf.h $(INTERVAL2_HEADER)
@@ -540,7 +538,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gaol_exact.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gaol_exceptions.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gaol_expression.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gaol_flt_output.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gaol_init_cleanup.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gaol_interval.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gaol_interval2f.Plo@am__quote@

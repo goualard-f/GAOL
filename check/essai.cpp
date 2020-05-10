@@ -1,7 +1,7 @@
 #include <iostream>
 #include <limits>
 #include <gaol/gaol>
-#include "gdtoa/gdtoa.h"
+
 using namespace std;
 using namespace gaol;
 

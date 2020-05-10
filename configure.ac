@@ -9,15 +9,13 @@
 # de Nantes-Atlantique, France.
 dnl
 # Copyright (c) 2001 Swiss Federal Institute of Technology, Switzerland
-# Copyright (c) 2002-2006 Laboratoire d'Informatique de Nantes-Atlantique,
+# Copyright (c) 2002-2016 Laboratoire d'Informatique de Nantes-Atlantique,
+#                         France
+# Copyright (c) 2017-2020 Laboratoire des Sciences du Numérique de Nantes,
 #                         France
 # ------------------------------------------------------------------------
 # gaol is a software distributed WITHOUT ANY WARRANTY. Read the associated
 # COPYING file for information.
-# ------------------------------------------------------------------------
-# CVS: $Id: configure.ac 291 2016-10-20 13:00:34Z goualard $
-# Last modified: Fri Oct  6 09:54:06 2006 on pc-goualard.lina.sciences.univ-nantes.prive
-# By: Frederic Goualard <Frederic.Goualard@lina.univ-nantes.fr>
 # ------------------------------------------------------------------------
 # This file is an input file used by the GNU "autoconf" program to
 # generate the file "configure", which is run during gaol installation
@@ -25,7 +23,6 @@ dnl
 # ------------------------------------------------------------------------
 
 AC_PREREQ(2.61)
-
 
 # gaol library version information
 # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -42,7 +39,7 @@ AC_PREREQ(2.61)
 # Version information for gaol
 m4_define([gaol_major_version], [4])
 m4_define([gaol_minor_version], [2])
-m4_define([gaol_micro_version], [2])
+m4_define([gaol_micro_version], [3])
 m4_define([gaol_version], ["gaol_major_version.gaol_minor_version.gaol_micro_version"])
 m4_define([gaol_release], [gaol_major_version.gaol_minor_version])
 m4_define([gaol_interface_age], [0])
@@ -56,7 +53,7 @@ AM_MAINTAINER_MODE([disable])
 AC_REVISION([$Revision: 291 $])
 AC_CONFIG_SRCDIR([gaol/gaol_config.h])
 AC_CONFIG_HEADERS([gaol/gaol_configuration.h])
-AC_COPYRIGHT([Copyright (c) 2002-2019 Laboratoire d'Informatique de Nantes-Atlantique, France])
+AC_COPYRIGHT([Copyright (c) 2002-2020 Laboratoire d'Informatique de Nantes-Atlantique, France])
 
 AC_CONFIG_MACRO_DIR([m4])
 
@@ -65,8 +62,8 @@ AC_DEFINE([GAOL_MINOR_VERSION],gaol_minor_version,[Minor version for gaol])
 AC_DEFINE([GAOL_MICRO_VERSION],gaol_micro_version,[Micro version for gaol])
 AC_DEFINE([GAOL_VERSION],gaol_version,[Version number for gaol])
 # Version for the manual
-GAOL_EDITION="4.4"
-GAOL_UPDATED="21 May 2015"
+GAOL_EDITION="4.5"
+GAOL_UPDATED="10 May 2020"
 GAOL_VERSION=gaol_version
 # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 AC_SUBST(GAOL_EDITION)
@@ -424,14 +421,6 @@ if test "${nextafter_found}" = yes; then
    AC_DEFINE(HAVE_NEXTAFTER,1,[ Define to 1 if you have the `nextafter' function.])
 fi
 
-# Checking for gdtoa
-# FIXME: find how to avoid the problem of absent inexact functions
-# AC_CHECK_LIB([gdtoa],[strtord],have_gdtoa=yes,have_gdtoa=no)
-# if test "${have_gdtoa}" = no; then
-#     AC_MSG_ERROR([gdtoa not found. Please check that libgdtoa.a is in the LIBRARY_PATH. If it is not present on your computer, you can download it from http://www.netlib.org/fp/gdtoa.tgz])
-# fi
-
-
 # Checking for tools to re-create the pdf documentation
 AC_CHECK_PROG(PDFLATEX,pdflatex,pdflatex,no)
 if test "$PDFLATEX" = "no"; then
@@ -545,8 +534,6 @@ AC_SUBST(CC)
 AC_SUBST(LDFLAGS)
 
 AC_CONFIG_FILES([Makefile
-		  gdtoa/Makefile
-		  gdtoa/test/Makefile
         check/Makefile
 		  doc/gaol_doxygen.cfg
         doc/Makefile

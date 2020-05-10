@@ -41,7 +41,6 @@ using std::istream;
 #include "gaol/gaol_common.h"
 #include "gaol/gaol_fpu.h"
 #include "gaol/gaol_expr_eval.h"
-#include "gdtoa/gdtoa.h"
 
 extern void gaol_initialize_parsing(const char* const str,
 				    gaol::interval* itv);

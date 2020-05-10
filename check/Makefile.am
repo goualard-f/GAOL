@@ -56,11 +56,11 @@ TESTS = $(check_PROGRAMS)
 
 #// TODO (goualard#4#): Handle cppunit under Windows
 if IS_CYGWIN_COND
-LDADD = -lgaol -lm @MATHLIB@ $(CPPUNIT_LIB) -lgdtoa
+LDADD = -lgaol -lm @MATHLIB@ $(CPPUNIT_LIB)
 else
-LDADD = -lm -lgaol $(CPPUNIT_LIB) -ldl -lgdtoa @MATHLIB@
+LDADD = -lm -lgaol $(CPPUNIT_LIB) -ldl @MATHLIB@
 endif
-AM_LDFLAGS = -L../gaol/.libs -L../gdtoa/.libs
+AM_LDFLAGS = -L../gaol/.libs 
 
 
 

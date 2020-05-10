@@ -20,8 +20,8 @@
 # SVN: $Id$
 #------------------------------------------------------------------------------
 
-LDADD = -lm -lgaol -lgdtoa @MATHLIB@
-AM_LDFLAGS = -L../gaol/.libs -L../gdtoa/.libs
+LDADD = -lm -lgaol @MATHLIB@
+AM_LDFLAGS = -L../gaol/.libs 
 
 noinst_PROGRAMS = Goldstein_Price
 

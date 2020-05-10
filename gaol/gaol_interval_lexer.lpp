@@ -34,7 +34,6 @@
 using namespace gaol;
 
 #include "gaol/gaol_interval_parser.h"
-#include "gdtoa/gdtoa.h"
 #include "gaol/gaol_exact.h"
 #include "gaol/gaol_fpu.h"
 
@@ -88,7 +87,7 @@ SPACE		[ \t\r]+
 
 {INT}		{       GAOL_RND_PRESERVE();
                 round_nearest();
-                strtord(gaol_text,NULL,FPI_Round_near,&gaol_lval.d);
+                gaol_lval.d = strtod(gaol_text,NULL);
                 GAOL_RND_RESTORE();
                 return NUMBER;
             }
@@ -97,13 +96,14 @@ SPACE		[ \t\r]+
 {DIGIT}*"."{DIGIT}+({E})? |
 {DIGIT}+"."{DIGIT}*({E})?	{
                 GAOL_RND_PRESERVE();
-                round_nearest();
+                round_downward();
                 clear_inexact();
-                strtord(gaol_text,NULL,FPI_Round_down,&gaol_lval.d);
+                gaol_lval.d = strtod(gaol_text,NULL);
                 if (get_inexact()) {  // The number has been rounded?
                                       // Then we will represent it with an interval
-                    (gaol_lval.itv).l=gaol_lval.d;
-                    strtord(gaol_text,NULL,FPI_Round_up,&(gaol_lval.itv).r);
+                    (gaol_lval.itv).l = gaol_lval.d;
+										round_upward();
+                    (gaol_lval.itv).r = strtod(gaol_text,NULL);
                     GAOL_RND_RESTORE();
                     return INTERVAL_CST;
                 }
