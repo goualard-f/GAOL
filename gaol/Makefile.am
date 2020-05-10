@@ -49,7 +49,7 @@ libgaol_la_SOURCES = \
 	gaol_interval.cpp gaol_profile.cpp gaol_common.cpp \
 	gaol_parser.cpp gaol_expression.cpp \
 	gaol_interval_parser.cpp gaol_interval_lexer.cpp gaol_port.cpp \
-	gaol_flt_output.cpp gaol_exceptions.cpp gaol_init_cleanup.cpp s_nextafter.c \
+	gaol_exceptions.cpp gaol_init_cleanup.cpp s_nextafter.c \
     gaol_exact.c gaol_intervalf.cpp $(INTERVAL2_SOURCE)
 
 
@@ -62,7 +62,7 @@ library_includedir=$(includedir)/gaol
 library_include_HEADERS = gaol gaol_assert.h gaol_exact.h gaol_interval.h gaol_common.h gaol_exceptions.h \
 	gaol_interval_parser.h gaol_config.h gaol_configuration.h gaol_expression.h gaol_limits.h \
 	gaol_expr_eval.h  gaol_expr_visitor.h gaol_parameters.h \
-	gaol_double_op_apmathlib.h gaol_double_op_crlibm.h gaol_flags.h gaol_parser.h gaol_double_op.h gaol_flt_output.h \
+	gaol_double_op_apmathlib.h gaol_double_op_crlibm.h gaol_flags.h gaol_parser.h gaol_double_op.h \
 	gaol_port.h gaol_fpu.h gaol_fpu_fenv.h gaol_profile.h gaol.h \
 	gaol_eval_stack.h gaol_init_cleanup.h gaol_version.h gaol_allocator.h \
 	gaol_interval_fpu.h gaol_interval_sse.h gaol_intervalf.h $(INTERVAL2_HEADER)

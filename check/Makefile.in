@@ -673,11 +673,11 @@ AM_DEFAULT_SOURCE_EXT = .cpp
 @CPPUNIT_COND_TRUE@CPPUNIT_LIB = -lcppunit
 EXTRA_DIST = gaolcc.in tests.h
 TESTS = $(check_PROGRAMS)
-@IS_CYGWIN_COND_FALSE@LDADD = -lm -lgaol $(CPPUNIT_LIB) -ldl -lgdtoa @MATHLIB@
+@IS_CYGWIN_COND_FALSE@LDADD = -lm -lgaol $(CPPUNIT_LIB) -ldl @MATHLIB@
 
 #// TODO (goualard#4#): Handle cppunit under Windows
-@IS_CYGWIN_COND_TRUE@LDADD = -lgaol -lm @MATHLIB@ $(CPPUNIT_LIB) -lgdtoa
-AM_LDFLAGS = -L../gaol/.libs -L../gdtoa/.libs
+@IS_CYGWIN_COND_TRUE@LDADD = -lgaol -lm @MATHLIB@ $(CPPUNIT_LIB)
+AM_LDFLAGS = -L../gaol/.libs 
 performances_SOURCES = performance_test_set.cpp performances.cpp
 PROBABILITIES = .05 .1 .1 .75
 all: all-am

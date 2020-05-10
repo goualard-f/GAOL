@@ -24,8 +24,8 @@
 
 
 EXTRA_DIST = BUGS
-SUBDIRS = gdtoa gaol check examples
-DIST_SUBDIRS = gdtoa gaol check doc examples
+SUBDIRS = gaol check examples
+DIST_SUBDIRS = gaol check doc examples
 ACLOCAL_AMFLAGS = -I m4
 
 # Requires automake 1.4

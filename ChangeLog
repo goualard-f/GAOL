@@ -1,12 +1,16 @@
+2020-05-10  Frédéric Goualard  <Frederic.Goualard@univ-nantes.fr>
+
+	* configure.ac: using gcc standard strtod() instead of gdtoa's
+	strtord() to avoid Bug #1 (https://github.com/goualard-f/GAOL/issues/1).
+
 2009-06-15  Frederic Goualard  <Frederic.Goualard@univ-nantes.fr>
 
-	* gaol/gaol_interval.h: corrected bug in is_symmetric() 
+	* gaol/gaol_interval.h: corrected bug in is_symmetric()
 
 2009-05-07  Frederic Goualard  <Frederic.Goualard@univ-nantes.fr>
 
 	* gaol/gaol_interval.h: added test in is_symmetric() so that an empty
-	  interval is considered as not symmetric.
-	  
+	  interval is considered as not symmetric
 
 2009-03-06  Frederic Goualard  <Frederic.Goualard@univ-nantes.fr>
 
