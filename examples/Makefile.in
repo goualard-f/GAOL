@@ -110,7 +110,7 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
-noinst_PROGRAMS = Goldstein_Price$(EXEEXT) bug$(EXEEXT)
+noinst_PROGRAMS = Goldstein_Price$(EXEEXT)
 subdir = examples
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/libtool.m4 \
@@ -133,10 +133,6 @@ AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
 am__v_lt_0 = --silent
 am__v_lt_1 = 
-am_bug_OBJECTS = bug.$(OBJEXT)
-bug_OBJECTS = $(am_bug_OBJECTS)
-bug_LDADD = $(LDADD)
-bug_DEPENDENCIES =
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
 am__v_P_0 = false
@@ -171,8 +167,8 @@ AM_V_CXXLD = $(am__v_CXXLD_@AM_V@)
 am__v_CXXLD_ = $(am__v_CXXLD_@AM_DEFAULT_V@)
 am__v_CXXLD_0 = @echo "  CXXLD   " $@;
 am__v_CXXLD_1 = 
-SOURCES = $(Goldstein_Price_SOURCES) $(bug_SOURCES)
-DIST_SOURCES = $(Goldstein_Price_SOURCES) $(bug_SOURCES)
+SOURCES = $(Goldstein_Price_SOURCES)
+DIST_SOURCES = $(Goldstein_Price_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -337,7 +333,6 @@ top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 LDADD = -lm -lgaol @MATHLIB@
 AM_LDFLAGS = -L../gaol/.libs 
-bug_SOURCES = bug.cpp
 Goldstein_Price_SOURCES = Goldstein_Price.cpp
 all: all-am
 
@@ -386,10 +381,6 @@ Goldstein_Price$(EXEEXT): $(Goldstein_Price_OBJECTS) $(Goldstein_Price_DEPENDENC
 	@rm -f Goldstein_Price$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(Goldstein_Price_OBJECTS) $(Goldstein_Price_LDADD) $(LIBS)
 
-bug$(EXEEXT): $(bug_OBJECTS) $(bug_DEPENDENCIES) $(EXTRA_bug_DEPENDENCIES) 
-	@rm -f bug$(EXEEXT)
-	$(AM_V_CXXLD)$(CXXLINK) $(bug_OBJECTS) $(bug_LDADD) $(LIBS)
-
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
 
@@ -397,7 +388,6 @@ distclean-compile:
 	-rm -f *.tab.c
 
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Goldstein_Price.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/bug.Po@am__quote@
 
 .cpp.o:
 @am__fastdepCXX_TRUE@	$(AM_V_CXX)depbase=`echo $@ | sed 's|[^/]*$$|$(DEPDIR)/&|;s|\.o$$||'`;\
