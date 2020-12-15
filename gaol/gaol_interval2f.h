@@ -94,14 +94,14 @@ namespace gaol {
 
 
       // Allocators defined to enforce alignment on a 16 bytes boundary
-      __GAOL_PUBLIC__ void *operator new(size_t sz) throw(std::bad_alloc);
-      __GAOL_PUBLIC__ void operator delete(void *p) throw();
+		__GAOL_PUBLIC__ void *operator new(size_t sz);
+		__GAOL_PUBLIC__ void operator delete(void *p);
 
-      __GAOL_PUBLIC__ void *operator new[](size_t sz) throw(std::bad_alloc);
-      __GAOL_PUBLIC__ void operator delete[](void *p) throw();
+		__GAOL_PUBLIC__ void *operator new[](size_t sz);
+		__GAOL_PUBLIC__ void operator delete[](void *p);
 
-      __GAOL_PUBLIC__ void *operator new(size_t sz, void *p) throw(std::bad_alloc);
-      __GAOL_PUBLIC__ void operator delete(void *p, void *place) throw();
+		__GAOL_PUBLIC__ void *operator new(size_t sz, void *p);
+		__GAOL_PUBLIC__ void operator delete(void *p, void *place);
 
 			friend interval2f pow(const interval2f& I, int n);
 

@@ -40,7 +40,7 @@ namespace gaol {
 	}
 
 
-	void* interval2f::operator new(size_t sz) throw(std::bad_alloc)
+	void* interval2f::operator new(size_t sz)
 	{
 		void *buf;
 		if (MEMALIGN(buf,16,sz)) { // error ?
@@ -49,12 +49,12 @@ namespace gaol {
 		return buf;
 	}
 
-    void interval2f::operator delete(void *p) throw()
+    void interval2f::operator delete(void *p)
     {
         free(p);
     }
 
-	void* interval2f::operator new[](size_t sz) throw(std::bad_alloc)
+	void* interval2f::operator new[](size_t sz)
 	{
 		void *buf;
 		if (MEMALIGN(buf,16,sz)) { // error ?
@@ -65,12 +65,12 @@ namespace gaol {
 
 
 
-    void interval2f::operator delete[](void *p) throw()
+    void interval2f::operator delete[](void *p)
     {
         free(p);
     }
 
-	void* interval2f::operator new(size_t sz, void *p) throw(std::bad_alloc)
+	void* interval2f::operator new(size_t sz, void *p)
 	{
 		if ((unsigned long long)p % 16 != 0) {
 			throw std::bad_alloc();
@@ -78,7 +78,7 @@ namespace gaol {
 		return p;
 	}
 
-    void interval2f::operator delete(void *p, void *place) throw()
+    void interval2f::operator delete(void *p, void *place)
     {
         free(p);
     }

@@ -68,7 +68,7 @@ namespace gaol {
     */
     gaol_exception(const char* f, unsigned l, const string& e);
 
-    ~gaol_exception() throw () {}
+    ~gaol_exception() {}
     /*!
       \brief Accessor for the file name
 

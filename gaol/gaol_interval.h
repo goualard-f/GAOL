@@ -262,14 +262,14 @@ namespace gaol {
     static const __m128d m128d_20mask;
 
     // Allocators defined to enforce alignment on a 16 bytes boundary
-    void *operator new(size_t sz) throw(std::bad_alloc);
-    void operator delete(void *p) throw();
+	void *operator new(size_t sz);
+	void operator delete(void *p);
 
-    void *operator new[](size_t sz) throw(std::bad_alloc);
-    void operator delete[](void *p) throw();
+	void *operator new[](size_t sz);
+	void operator delete[](void *p);
 
-    void *operator new(size_t sz, void *p) throw(std::bad_alloc);
-    void operator delete(void *p, void *place) throw();
+	void *operator new(size_t sz, void *p);
+	void operator delete(void *p, void *place);
 
 #else // !USING_SSE2_INSTRUCTIONS
     static const interval cst_emptyset;

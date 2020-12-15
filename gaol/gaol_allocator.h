@@ -67,29 +67,29 @@ class aligned_allocator
 			return &value;
 		}
 
-		aligned_allocator() throw()
+		aligned_allocator()
 		{
 		}
 
-		aligned_allocator ( const aligned_allocator& ) throw()
+		aligned_allocator ( const aligned_allocator& )
 		{
 		}
 
 		template <class U>
-		aligned_allocator ( const aligned_allocator<U>& ) throw()
+		aligned_allocator ( const aligned_allocator<U>& )
 		{
 		}
 
-		~aligned_allocator() throw()
+		~aligned_allocator()
 		{
 		}
 
-		size_type max_size () const throw()
+		size_type max_size () const
 		{
 			return std::numeric_limits<std::size_t>::max() / sizeof ( T );
 		}
 
-		pointer allocate ( size_type num, const void* = 0 ) throw ( std::bad_alloc )
+		pointer allocate ( size_type num, const void* = 0 )
 		{
 			void *buf;
 			if ( MEMALIGN( buf,16,num*sizeof ( value_type ) ) )   // Allocation error?
