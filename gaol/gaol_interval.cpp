@@ -51,7 +51,6 @@
 #include "gaol/gaol_parser.h"
 #include "gaol/gaol_port.h"
 #include "gaol/gaol_interval.h"
-#include "gaol/gaol_flt_output.h"
 #include "gaol/gaol_parameters.h"
 #include "gaol/gaol_limits.h"
 #include "gaol/gaol_exceptions.h"
