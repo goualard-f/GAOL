@@ -32,6 +32,7 @@
 
 #include <cmath>
 #include <iosfwd>
+#include <ios>
 #include <string>
 #include <limits>
 #include "gaol/gaol_config.h"

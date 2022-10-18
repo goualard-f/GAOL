@@ -94,7 +94,7 @@ AC_SUBST(GAOL_RPM_RELEASE)
 AC_PROG_YACC
 
 CFLAGS="${CFLAGS} -I.."
-CXXFLAGS="${CXXFLAGS} -I.."
+CXXFLAGS="${CXXFLAGS} -std=c++11 -I.."
 
 AC_PROG_CC([gcc])
 AC_PROG_CXX
@@ -353,6 +353,11 @@ i?86-*-cygwin*)
 	AC_DEFINE(IX86_CYGWIN,1,
           [Define this if your system is a cygwin-based ix86 or compatible])
 	AM_CONDITIONAL([IS_CYGWIN_COND],[true])
+	;;
+arm-apple-*)
+	AC_DEFINE(ARM_MACOSX,1,
+          [Define this if your system is a Linux-based ix86 or compatible])
+	AM_CONDITIONAL([IS_CYGWIN_COND],[false])
 	;;
 i?86-apple-*)
 	AC_DEFINE(IX86_MACOSX,1,

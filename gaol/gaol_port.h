@@ -37,9 +37,9 @@
 #include "gaol/gaol_config.h"
 #include "gaol/gaol_limits.h"
 
-#if HAVE_FINITE
+//#if HAVE_FINITE
 #  include <cmath>
-#endif
+//#endif
 
 // Alignment on an 'nbytes' bytes boundary
 #if defined(_MSC_VER)
@@ -60,7 +60,7 @@
 #  define _XOPEN_SOURCE 600
 #  include <stdlib.h>
 #  define MEMALIGN(buf,boundary,size) posix_memalign(&buf,boundary,size)
-#elif defined(IX86_MACOSX)
+#elif defined(IX86_MACOSX) || defined(ARM_MACOSX)
 // According to man page, Intel/MacOSX's malloc aligns correctly for SSE-related types
 #  define MEMALIGN(buf,boundary,size) (!(buf=malloc(size)))
 #else
